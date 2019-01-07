@@ -1,18 +1,17 @@
 <h4>Formularios <small>aproximación por template</small> </h4>
 <hr>
-<form>
+<form (ngSubmit)="guardar()">
   <div>
     <mat-form-field>
-      <input matInput placeholder="Nombre">
+      <input matInput placeholder="Nombre" name="nombre" minlength="5" [(ngModel)]="nombre" required>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Apellido">
+      <input matInput placeholder="Apellido" [(ngModel)]="apellido" minlenght="5" name="apellido" required>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Correo">
+      <input matInput placeholder="Correo" [(ngModel)]="mail" name="mail" required>
       <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
     </mat-form-field>
     <button mat-raised-button type="submit">Guardar</button>
-
   </div>
 </form>

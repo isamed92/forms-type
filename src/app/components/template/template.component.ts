@@ -11,4 +11,9 @@ export class TemplateComponent implements OnInit {
   ngOnInit() {
   }
 
+  guardar() {
+    console.log('form posteado');
+
+  }
+
 }
