@@ -1,17 +1,85 @@
-<h4>Formularios <small>aproximación por template</small> </h4>
-<hr>
-<form (ngSubmit)="guardar()">
+<h4>Formularios <small>aproximación por template</small></h4>
+<hr />
+<form (ngSubmit)="guardar(forma)" #forma="ngForm" class="was-validated">
+  
+  
   <div>
     <mat-form-field>
-      <input matInput placeholder="Nombre" name="nombre" minlength="5" [(ngModel)]="nombre" required>
+      <input class="form-control is-invalid"
+        matInput
+        placeholder="Nombre"
+        name="usuar"
+        minlength="3"
+        [(ngModel)]="usuario.nombre"
+        required
+        #nombre="ngModel"
+      />
     </mat-form-field>
+        <div *ngIf="nombre.errors?.required" class="invalid-feedback">
+          Este campo es requerido
+        </div>
+    
+        <div *ngIf="nombre.errors?.minlength" class="invalid-feedback">
+          Este campo requiere por lo menos
+          {{ nombre.errors.minlength.requiredLength }} caracteres
+        </div>
+
+
+
     <mat-form-field>
-      <input matInput placeholder="Apellido" [(ngModel)]="apellido" minlenght="5" name="apellido" required>
+      <input
+        class="form-control is-invalid"
+        matInput
+        placeholder="Apellido"
+        [(ngModel)]="usuario.apellido"
+        minlenght="5"
+        name="apellido"
+        required
+        #apellido="ngModel"
+      />
     </mat-form-field>
+
+
+    <div *ngIf="apellido.errors?.required" class="invalid-feedback">
+      Este campo es requerido
+    </div>
+
+
+    <div *ngIf="apellido.errors?.minlength" class="invalid-feedback">
+      Este campo requiere por lo menos
+      {{ nombre.errors.minlength.requiredLength }} caracteres
+    </div>
+
+
+
     <mat-form-field>
-      <input matInput placeholder="Correo" [(ngModel)]="mail" name="mail" required>
+      <input
+        class="form-control is-invalid"
+        matInput
+        placeholder="Correo"
+        [(ngModel)]="usuario.mail"
+        name="mail"
+        required
+        #mail="ngModel"
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+      />
       <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
     </mat-form-field>
-    <button mat-raised-button type="submit">Guardar</button>
+    
+    
+    <div *ngIf="mail.errors?.required" class="invalid-feedback">Este campo es requerido</div>
+    
+    
+    <div *ngIf="mail.errors?.pattern" class="invalid-feedback">
+      Este campo no cumple con el formato correcto
+    </div>
+    
+    
+    
+    <button
+     mat-raised-button 
+     type="submit"
+     [disabled]="!forma.valid"
+     >Guardar</button>
   </div>
 </form>
