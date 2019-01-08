@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 
 @Component({
@@ -15,9 +15,9 @@ export class DataComponent   {
 
   ) {
     this.forma = new FormGroup({
-      'nombre': new FormControl('Fernando'),
-      'apellido': new FormControl(),
-      'correo': new FormControl()
+      'nombre': new FormControl('', Validators.required),
+      'apellido': new FormControl('', Validators.required),
+      'correo': new FormControl('', [Validators.required, Validators.email])
     });
    }
 
