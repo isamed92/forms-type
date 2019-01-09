@@ -12,7 +12,7 @@ export class DataComponent   {
   forma: FormGroup;
 
   usuario: object = {
-    nombreCompleto: {
+    nombrecompleto: {
       nombre: 'fernando',
       apellido: 'herrera'
     },
@@ -35,11 +35,25 @@ export class DataComponent   {
       'correo': new FormControl('', [Validators.required, Validators.email])
     });
 
+    // Para cargar los datos en la forma, solo si tiene la misma estructura
+    this.forma.setValue(this.usuario);
+
 
    }
 
    guardarCambios() {
      console.log(this.forma);
+     console.log(this.forma.value);
+
+     this.forma.reset({
+        nombrecompleto: {
+          nombre: '',
+          apellido: ''
+        },
+        correo: ''
+     });
+
+    // this.forma.controls['correo'].setValue('da');
    }
 
 
