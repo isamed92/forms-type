@@ -36,11 +36,19 @@ export class DataComponent   {
       correo: new FormControl('', [Validators.required, Validators.email]),
       pasatiempos: new FormArray([
         new FormControl('Correr', [Validators.required])
-      ])
+      ]),
+      password1: new FormControl('', [Validators.required]),
+      password2: new FormControl()
+
     });
 
     // Para cargar los datos en la forma, solo si tiene la misma estructura
     // this.forma.setValue(this.usuario);
+
+    this.forma.controls['password2'].setValidators([
+      Validators.required,
+      this.noIgual.bind(this.forma)
+    ]);
 
 
    }
@@ -67,10 +75,21 @@ export class DataComponent   {
 
   }
   // Validacion personalizada
-  noMedina(control: FormControl): {[s: string: boolean]} {
+  noMedina(control: FormControl): {[s: string]: boolean} {
     if (control.value === 'medina') {
       return {
         nomedina: true
+      };
+    }
+    return null;
+  }
+
+  // Validacion personalizada para ver que el password 1 sea igual al password 2
+  noIgual(control: FormControl): { [s: string]: boolean } {
+    const forma: any = this;
+    if (control.value !== forma.controls['password1'].value) {
+      return {
+        noiguales: true
       };
     }
     return null;
