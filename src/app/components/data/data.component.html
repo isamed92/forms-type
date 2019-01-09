@@ -2,17 +2,17 @@
 <hr>
 <form [formGroup]="forma" (ngSubmit)="guardarCambios()" novalidate="novalidate">
 
-  <div>
+  <div formGroupName="nombrecompleto">
 
     <div class="form-group row">
       <label class="col-2 col-form-label">Nombre</label>
       <div class="col-8">
 
         <input class="form-control" type="text" placeholder="Nombre" formControlName="nombre">
-        <div class="form-control-feedback" *ngIf="forma.controls['nombre'].errors?.required">
+        <div class="form-control-feedback" *ngIf="forma.get('nombrecompleto.nombre').errors?.required">
           El nombre es necesario.
         </div>
-        <div class="form-control-feedback" *ngIf="forma.controls['nombre'].errors?.minlength">
+        <div class="form-control-feedback" *ngIf="forma.get('nombrecompleto.nombre').errors?.minlength">
           Por lo menos 3 caracteres.
         </div>
       </div>
