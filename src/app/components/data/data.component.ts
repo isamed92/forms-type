@@ -31,7 +31,7 @@ export class DataComponent   {
           Validators.required,
           Validators.minLength(3)
         ]),
-        apellido: new FormControl('', Validators.required)
+        apellido: new FormControl('', [Validators.required, this.noMedina])
       }),
       correo: new FormControl('', [Validators.required, Validators.email]),
       pasatiempos: new FormArray([
@@ -49,13 +49,13 @@ export class DataComponent   {
      console.log(this.forma);
      console.log(this.forma.value);
 
-     this.forma.reset({
-        nombrecompleto: {
-          nombre: '',
-          apellido: ''
-        },
-        correo: ''
-     });
+    //  this.forma.reset({
+    //     nombrecompleto: {
+    //       nombre: '',
+    //       apellido: ''
+    //     },
+    //     correo: ''
+    //  });
 
     // this.forma.controls['correo'].setValue('da');
    }
@@ -65,6 +65,15 @@ export class DataComponent   {
     );
     console.log(this.forma.controls['pasatiempos']);
 
+  }
+  // Validacion personalizada
+  noMedina(control: FormControl): {[s: string: boolean]} {
+    if (control.value === 'medina') {
+      return {
+        nomedina: true
+      };
+    }
+    return null;
   }
 
 
