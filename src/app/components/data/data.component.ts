@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 
 
 @Component({
@@ -16,7 +16,8 @@ export class DataComponent   {
       nombre: 'fernando',
       apellido: 'herrera'
     },
-    correo: 'isamail@mail.com'
+    correo: 'isamail@mail.com',
+    // pasatiempos: ['correr', 'dormir', 'comer']
   };
 
   constructor(
@@ -25,18 +26,21 @@ export class DataComponent   {
     console.log(this.usuario);
 
     this.forma = new FormGroup({
-      'nombrecompleto': new FormGroup({
-        'nombre': new FormControl('', [
+      nombrecompleto: new FormGroup({
+        nombre: new FormControl('', [
           Validators.required,
           Validators.minLength(3)
         ]),
-        'apellido': new FormControl('', Validators.required)
+        apellido: new FormControl('', Validators.required)
       }),
-      'correo': new FormControl('', [Validators.required, Validators.email])
+      correo: new FormControl('', [Validators.required, Validators.email]),
+      pasatiempos: new FormArray([
+        new FormControl('Correr', [Validators.required])
+      ])
     });
 
     // Para cargar los datos en la forma, solo si tiene la misma estructura
-    this.forma.setValue(this.usuario);
+    // this.forma.setValue(this.usuario);
 
 
    }
@@ -55,6 +59,13 @@ export class DataComponent   {
 
     // this.forma.controls['correo'].setValue('da');
    }
+  agregarPasatiempo() {
+    (<FormArray>this.forma.controls['pasatiempos']).push(
+      new FormControl('', [Validators.required])
+    );
+    console.log(this.forma.controls['pasatiempos']);
+
+  }
 
 
 
